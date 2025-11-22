@@ -18,7 +18,7 @@ export default function MovieUploadDashboard() {
     banner: null,
     poster: null,
     trailerUrl: "",
-    trailerFile: null,
+    video: null,
     screenshots: [],
     clips: []
   });
@@ -85,7 +85,7 @@ export default function MovieUploadDashboard() {
           banner: null,
           poster: null,
           trailerUrl: "",
-          trailerFile: null,
+          video: null,
           screenshots: [],
           clips: []
         });
@@ -140,7 +140,8 @@ export default function MovieUploadDashboard() {
 
         <div>
           <label className="block mb-1 text-gray-400">Upload Trailer File (Optional)</label>
-          <input type="file" name="trailerFile" onChange={handleChange} className="text-gray-200" accept="video/*" />
+          <input type="file" name="video" onChange={handleChange} className="text-gray-200" accept="video/*" />
+
         </div>
 
         <div className="col-span-full">

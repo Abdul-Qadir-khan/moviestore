@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import {
   FiUser,
@@ -20,25 +21,25 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 left-0 z-50 w-full text-white shadow-md bg-black py-5 md:py-0">
-      <div className="max-w-[1170px] mx-auto flex items-center justify-between px-5 md:px-0">
+      <div className="max-w-[1170px] mx-auto flex items-center justify-between px-5 md:px-10 xl:px-0">
         
         {/* Logo */}
-        <a href="#" className="flex items-center">
+        <Link href="/" className="flex items-center relative w-[130px] h-[40px]">
           <Image
             src="/movex-logo-white.png"
             alt="Movex Logo"
-            width={130}
-            height={40}
+            fill
+            className="object-contain"
             priority
           />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex text-sm font-medium gap-3">
-          <a href="movies" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">Movies</a>
-          <a href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">TV Shows</a>
-          <a href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">Trending</a>
-          <a href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">My List</a>
+          <Link href="/movies" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">Movies</Link>
+          <Link href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">TV Shows</Link>
+          <Link href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">Trending</Link>
+          <Link href="#" className="hover:text-red-500 hover:bg-white p-5 uppercase transition 1s ease-in">My List</Link>
         </nav>
 
         {/* Action Buttons */}

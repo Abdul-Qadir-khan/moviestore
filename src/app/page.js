@@ -23,8 +23,8 @@ export default function Homepage() {
   return (
     <main>
 
-      <section className="relative max-h-[550px] mt-4 overflow-hidden">
-        <div className="max-w-[1170px] mx-auto px-5 md:px-0">
+      <section className="relative max-h-[550px] md:max-h-[700px] mt-4 overflow-hidden">
+        <div className="max-w-[1170px] mx-auto px-5 md:px-10 xl:px-0">
           {/* Gradient Overlay */}
           {/* <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-transparent z-3"></div> */}
 
@@ -45,7 +45,7 @@ export default function Homepage() {
             {images.map((img, i) => (
               <SwiperSlide key={i}>
                 <div
-                  className="z-10 h-100 w-full bg-cover bg-center relative rounded-[2rem]"
+                  className="z-10 md:h-100 h-75 w-full bg-cover bg-center relative rounded-[2rem]"
                   style={{ backgroundImage: `url(/${img.src})` }}
                 >
                   {/* <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-transparent z-3"></div> */}
@@ -53,10 +53,10 @@ export default function Homepage() {
 
                   {/* Slide Content */}
                   <div className="relative z-30 h-full flex flex-col justify-center items-start px-10 md:px-20 text-white">
-                    <h2 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-md">
+                    <h2 className="text-[calc(7.5vw-0px)] leading-[auto] md:text-6xl font-bold lg:mb-2 drop-shadow-md">
                       {img.title}
                     </h2>
-                    <p className="text-lg md:text-xl mb-6 max-w-xl opacity-90">{img.desc}</p>
+                    <p className="text-lg md:text-xl lg:mb-6 mb-4 max-w-xl opacity-90">{img.desc}</p>
                     <div className="flex items-center gap-4">
                       <span className="bg-white text-black font-bold py-1 px-3 rounded-md text-sm">
                         ⭐ {img.rating}/10
@@ -72,7 +72,7 @@ export default function Homepage() {
           </Swiper>
 
           {/* Custom Navigation Buttons */}
-          <div className="relative w-fit translate-y-[-5rem] bottom-10 flex justify-between md:bottom-5 z-20 flex gap-6 px-10 md:px-20">
+          <div className="relative w-fit md:translate-y-[-5rem] translate-y-[-2rem] bottom-10 flex justify-between md:bottom-5 z-20 flex gap-6 px-10 md:px-20">
             <button
               className="swiper-button-prev-custom bg-white/20 hover:bg-white/40 p-4 rounded-full text-white text-2xl backdrop-blur transition"
               title="Previous"
@@ -91,8 +91,8 @@ export default function Homepage() {
 
 
       <section className="bg-[#0d0d0d] text-white py-16">
-        <div className="max-w-[1170px] mx-auto px-5 md:px-0">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10">
+        <div className="max-w-[1170px] mx-auto px-5 md:px-10 xl:px-0">
+          <h2 className="text-2xl md:text-4xl font-bold mb-5">
             🎬 Trending Movies
           </h2>
 
@@ -150,9 +150,9 @@ export default function Homepage() {
       </section>
 
 
-      <section className="py-16 ">
-      <div className="max-w-[1170px] mx-auto px-5 md:px-0">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-black">📂 Browse by Category</h2>
+      <section className="py-16">
+      <div className="max-w-[1170px] mx-auto px-5 md:px-10 xl:px-0">
+        <h2 className="text-2xl md:text-4xl font-bold mb-5 text-black">📂 Browse by Category</h2>
 
         <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {[
@@ -177,8 +177,8 @@ export default function Homepage() {
 
 
       <section className="py-16">
-      <div className="max-w-[1170px] mx-auto px-5 md:px-0">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-black">🎯 Movex Spotlight</h2>
+      <div className="max-w-[1170px] mx-auto px-5 md:px-10 xl:px-0">
+        <h2 className="text-2xl md:text-4xl font-bold mb-5 text-black">🎯 Movex Spotlight</h2>
 
         <div className="grid md:gap-6 md:grid-cols-3">
           {/* Large Featured Movie */}
@@ -231,14 +231,14 @@ export default function Homepage() {
 
 
       <section className="bg-cyan-800 text-white py-16">
-      <div className="max-w-[1170px] mx-auto px-5 md:px-0">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-3xl font-bold">📺 Now Streaming</h2>
+      <div className="max-w-[1170px] mx-auto px-5 md:px-10 xl:px-0">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">📺 Now Streaming</h2>
           <a href="#" className="text-sm text-blue-400 hover:underline">View All</a>
         </div>
 
         <div className="relative">
-          <div className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory p-4 ps-2 no-scrollbar">
+          <div className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pt-5 p-4 ps-2 no-scrollbar">
             {[
               {
                 title: "Neon Depths",
@@ -309,7 +309,7 @@ export default function Homepage() {
 
           {/* Actor Info */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">🎭 Featured Actor</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4">🎭 Featured Actor</h2>
             <h3 className="text-2xl font-semibold mb-2">Aarav Kapoor</h3>
             <p className="text-gray-500 mb-6 leading-relaxed">
               Aarav Kapoor, known for his deep character portrayals and powerful screen presence, has starred in over 20 international films. From action-packed thrillers to heartfelt dramas, his range continues to inspire new generations.
@@ -325,7 +325,7 @@ export default function Homepage() {
 
       <section className="bg-[#111] text-white py-20 px-6 md:px-10">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-2">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-2">
             📩 <span>Stay in the Loop</span>
           </h2>
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
@@ -336,7 +336,7 @@ export default function Homepage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full sm:w-80 px-6 py-3 rounded-full text-black placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-red-600"
+              className="w-full sm:w-80 px-6 py-3 rounded-full text-black placeholder:text-gray-600 border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600"
               required
             />
             <button

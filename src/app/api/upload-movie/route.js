@@ -1,69 +1,81 @@
-import dbConnect from "@/lib/mongodb";
-import Movie from "@/models/Movie";
-import { writeFile } from "fs/promises";
+import { connectDB } from "@/lib/db";
+import fs from "fs";
 import path from "path";
+
+async function saveFile(file, folder) {
+  if (!file || !file.name) return null;
+
+  const bytes = Buffer.from(await file.arrayBuffer());
+
+  const uploadDir = `public/${folder}`;
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+
+  const filePath = `${folder}/${Date.now()}-${file.name}`;
+  fs.writeFileSync(`public/${filePath}`, bytes);
+
+  return `/${filePath}`;
+}
 
 export async function POST(req) {
   try {
-    await dbConnect();
+    const db = await connectDB();
+    const form = await req.formData();
 
-    const formData = await req.formData();
-    const data = Object.fromEntries(formData.entries());
+    // TEXT FIELDS
+    const title = form.get("title");
+    const slug = form.get("slug");
+    const year = form.get("year");
+    const genre = form.get("genre");
+    const duration = form.get("duration");
+    const rating = form.get("rating");
+    const cast = form.get("cast");
+    const description = form.get("description");
+    const metaTitle = form.get("metaTitle");
+    const metaKeywords = form.get("metaKeywords");
+    const metaDescription = form.get("metaDescription");
+    const trailerUrl = form.get("trailerUrl");
 
-    // Handle file uploads (optional)
-    const uploadDir = path.join(process.cwd(), "public/uploads");
+    // Canonical (Auto-Generate)
+    const canonical = `https://yourdomain.com/movies/${slug}`;
 
-    const saveFile = async (file, folder) => {
-      if (!file) return null;
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `${Date.now()}-${file.name}`;
-      const filePath = path.join(uploadDir, folder, filename);
-      await writeFile(filePath, buffer);
-      return `/uploads/${folder}/${filename}`;
-    };
+    // FILES
+    const banner = await saveFile(form.get("banner"), "uploads");
+    const poster = await saveFile(form.get("poster"), "uploads");
+    const video = await saveFile(form.get("video"), "uploads/videos");
 
-    const banner = await saveFile(formData.get("banner"), "banners");
-    const poster = await saveFile(formData.get("poster"), "posters");
-    const trailerFile = await saveFile(formData.get("trailerFile"), "trailers");
+    // INSERT
+    await db.query(
+      `INSERT INTO movies 
+      (title, slug, year, genre, duration, rating, cast, description,
+       metaTitle, metaKeywords, metaDescription, canonical,
+       trailerUrl, banner, poster, video)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        title,
+        slug,
+        year,
+        genre,
+        duration,
+        rating,
+        cast,
+        description,
+        metaTitle,
+        metaKeywords,
+        metaDescription,
+        canonical,
+        trailerUrl,
+        banner,
+        poster,
+        video
+      ]
+    );
 
-    // For multiple files (screenshots, clips)
-    const screenshots = [];
-    const clips = [];
+    return Response.json({ success: true });
 
-    for (const [key, value] of formData.entries()) {
-      if (key === "screenshots" && value.name) {
-        screenshots.push(await saveFile(value, "screenshots"));
-      }
-      if (key === "clips" && value.name) {
-        clips.push(await saveFile(value, "clips"));
-      }
-    }
-
-    // Save movie to DB
-    const movie = await Movie.create({
-      title: data.title,
-      slug: data.slug,
-      year: data.year,
-      genre: data.genre,
-      duration: data.duration,
-      rating: data.rating,
-      cast: data.cast,
-      description: data.description,
-      metaTitle: data.metaTitle,
-      metaKeywords: data.metaKeywords,
-      metaDescription: data.metaDescription,
-      trailerUrl: data.trailerUrl,
-      banner,
-      poster,
-      trailerFile,
-      screenshots,
-      clips,
-    });
-
-    return Response.json({ success: true, movie });
-  } catch (error) {
-    console.error("Upload error:", error);
-    return Response.json({ success: false, error: error.message }, { status: 500 });
+  } catch (err) {
+    console.error("UPLOAD ERROR:", err);
+    return Response.json({ error: "Server error" }, { status: 500 });
   }
 }

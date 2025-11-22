@@ -9,18 +9,15 @@ export default function Footer() {
                 {/* Top Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
                     {/* Logo + Description */}
-                    <div>
+                    <a href="#" className="flex items-center relative w-[130px] h-[40px]">
                         <Image
                             src="/movex-logo.png"
                             alt="Movex Logo"
-                            width={120}
-                            height={40}
-                            className="mb-4"
+                            fill
+                            className="object-contain"
+                            priority
                         />
-                        <p className="text-sm text-gray-500 leading-relaxed">
-                            Stream the latest movies, timeless classics, and binge-worthy series — all in one place.
-                        </p>
-                    </div>
+                    </a>
 
                     {/* Browse */}
                     <div>
